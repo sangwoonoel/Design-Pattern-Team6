@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  rabbit-escape:
+    build:
+      context: .
+    volumes:
+      - .:/app        
+    working_dir: /app 
+    command: >
+      sh -c "make dist-swing"
