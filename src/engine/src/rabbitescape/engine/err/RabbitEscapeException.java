@@ -31,7 +31,7 @@ public class RabbitEscapeException extends RuntimeException
     @Override
     public String getMessage()
     {
-        return translate( Locale.getDefault() );
+        return translate( Locale.ENGLISH );
     }
 
     public String translate( Locale locale )
