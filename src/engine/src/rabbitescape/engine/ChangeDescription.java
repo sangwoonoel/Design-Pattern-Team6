@@ -168,6 +168,8 @@ public class ChangeDescription
         RABBIT_CLIMBING_RIGHT_END,
         RABBIT_CLIMBING_RIGHT_BANG_HEAD,
 
+        RABBIT_FREEZING,
+
         RABBIT_DROWNING,
 
         RABBIT_BLOCKING,
@@ -212,6 +214,11 @@ public class ChangeDescription
         TOKEN_BROLLY_STILL,
         TOKEN_BROLLY_FALL_TO_SLOPE,
         TOKEN_BROLLY_ON_SLOPE,
+
+        TOKEN_FREEZING_FALLING,
+        TOKEN_FREEZING_STILL,
+        TOKEN_FREEZING_FALL_TO_SLOPE,
+        TOKEN_FREEZING_ON_SLOPE,
 
         WATER_REGION,
         WATER_REGION_HALF,

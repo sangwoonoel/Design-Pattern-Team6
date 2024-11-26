@@ -30,7 +30,8 @@ public class Token extends Thing
         block,
         climb,
         explode,
-        brolly
+        brolly,
+        freeze
     }
 
     public final Type type;
@@ -129,6 +130,16 @@ public class Token extends Thing
                 TOKEN_BROLLY_ON_SLOPE
                 );
 
+            case freeze: return chooseState(
+                moving,
+                slopeBelow,
+                onSlope,
+                TOKEN_FREEZING_FALLING,
+                TOKEN_FREEZING_STILL,
+                TOKEN_FREEZING_FALL_TO_SLOPE,
+                TOKEN_FREEZING_ON_SLOPE
+            );
+
             default: throw new UnknownType( type );
         }
     }
@@ -193,6 +204,8 @@ public class Token extends Thing
         case TOKEN_EXPLODE_FALLING:
         case TOKEN_BROLLY_FALLING:
         case TOKEN_BROLLY_FALL_TO_SLOPE:
+        case TOKEN_FREEZING_FALLING:
+        case TOKEN_FREEZING_FALL_TO_SLOPE:
         {
             ++y;
 
