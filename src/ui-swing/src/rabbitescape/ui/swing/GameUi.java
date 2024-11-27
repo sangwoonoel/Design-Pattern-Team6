@@ -663,8 +663,15 @@ public class GameUi implements StatsChangedListener
 
     private void updateChosenAbility()
     {
-        topBar.abilityChanged(
-            chosenAbility, gameLaunch.world.abilities.get( chosenAbility ) );
+        if ( chosenAbility.isBasic )
+        {
+            topBar.abilityChanged(
+                chosenAbility, gameLaunch.world.abilities.get( chosenAbility ) );
+        }
+        else
+        {
+            topBar.buyableAbilityChanged( chosenAbility, gameLaunch.world.abilities.get( chosenAbility ) );
+        }
     }
 
     @Override

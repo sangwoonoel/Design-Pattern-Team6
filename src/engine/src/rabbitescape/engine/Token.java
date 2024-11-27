@@ -24,14 +24,21 @@ public class Token extends Thing
 
     public static enum Type
     {
-        bash,
-        dig,
-        bridge,
-        block,
-        climb,
-        explode,
-        brolly,
-        freeze
+        bash(true),
+        dig(true),
+        bridge(true),
+        block(true),
+        climb(true),
+        explode(true),
+        brolly(true),
+        freeze(false);
+
+        public final boolean isBasic;
+
+        Type(boolean isBasic)
+        {
+            this.isBasic = isBasic;
+        }
     }
 
     public final Type type;

@@ -24,6 +24,8 @@ public class TopBar implements Physics.StatsChangedListener
     private static final String abilityText =
         "${ability} (${numLeft} left)";
 
+    private static final String buyableAbilityText = "${ability} (cost : ${cost})";
+
     private final Color backgroundColor;
     private final JPanel panel;
     private final JLabel out;
@@ -85,6 +87,11 @@ public class TopBar implements Physics.StatsChangedListener
     public void abilityChanged( Token.Type ability, int numLeft )
     {
         setAbilityText( this.ability, abilityText, ability.name(), numLeft );
+    }
+
+    public void buyableAbilityChanged( Token.Type ability, int cost )
+    {
+        setText( this.ability, buyableAbilityText, newMap("ability", ability.name(), "cost", String.valueOf(cost)));
     }
 
     private void setCountText( JLabel label, String text, int num1, int num2 )
