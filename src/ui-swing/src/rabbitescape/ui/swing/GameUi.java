@@ -649,7 +649,7 @@ public class GameUi implements StatsChangedListener
         }
 
         int numLeft = gameLaunch.addToken( tileX, tileY, chosenAbility );
-        menu.abilities.get( chosenAbility ).setNumLeft( numLeft );
+        menu.abilities.get( chosenAbility ).stateChange( numLeft );
 
         updateChosenAbility();
     }

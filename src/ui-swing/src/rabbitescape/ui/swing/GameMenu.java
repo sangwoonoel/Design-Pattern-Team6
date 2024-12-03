@@ -176,11 +176,14 @@ class GameMenu
 
             MenuTools.clickOnKey( button, iconName, key );
 
-            AbilityDisplay abilityDisplay = new AbilityDisplay(
+            AbilityDisplay abilityDisplay
+                = AbilityDisplay.createAbilityDisplay(
+                ability,
+                abilityTypes.get( ability ),
                 button,
                 abilityNumber
             );
-            abilityDisplay.setNumLeft( abilityTypes.get( ability ) );
+
             ret.put( ability, abilityDisplay );
 
             abilitiesGroup.add( button );
@@ -270,22 +273,85 @@ class GameMenu
         }
     }
 
-    static class AbilityDisplay
+    abstract static class AbilityDisplay
     {
         final JToggleButton button;
         final JLabel label;
 
-        AbilityDisplay(JToggleButton button, JLabel label) {
+        AbilityDisplay( JToggleButton button, JLabel label )
+        {
             this.button = button;
             this.label = label;
         }
 
-        public void setNumLeft( int numLeft )
+        public abstract void stateChange( Object... args );
+
+        public static AbilityDisplay createAbilityDisplay(
+            Token.Type type, Integer initValue, JToggleButton button, JLabel label
+        )
+        {
+            if ( type.isBasic )
+            {
+                return new BasicAbilityDisplay( button, label, initValue );
+            }
+            else
+            {
+                return new SpecialAbilityDisplay( button, label, initValue );
+            }
+        }
+    }
+
+    static class BasicAbilityDisplay extends AbilityDisplay
+    {
+
+        public BasicAbilityDisplay( JToggleButton button, JLabel label, int numLeft )
+        {
+            super( button, label );
+            setNumLeft( numLeft );
+        }
+
+        private void setNumLeft( int numLeft )
         {
             if ( numLeft == 0 ) {
                 button.setEnabled( false );
             }
             label.setText( " " + numLeft );
         }
+
+        @Override
+        public void stateChange( Object... args )
+        {
+            Object arg = args[ 0 ];
+            if ( arg instanceof Integer )
+            {
+                setNumLeft( (Integer)arg );
+            }
+            else {
+                throw new IllegalArgumentException( "Expected Integer" );
+            }
+
+        }
     }
+
+    static class SpecialAbilityDisplay extends AbilityDisplay
+    {
+        public SpecialAbilityDisplay( JToggleButton button, JLabel label, int cost )
+        {
+            super( button, label );
+            setCost( cost );
+        }
+
+        @Override
+        public void stateChange( Object... args )
+        {
+
+        }
+
+        public void setCost( int cost )
+        {
+            label.setText( " " + cost );
+        }
+    }
+
+
 }
