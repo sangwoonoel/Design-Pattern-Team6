@@ -296,6 +296,8 @@ public class Walking extends Behaviour
                 checkJumpOntoSlope( world, rabbit );
                 return true;
             }
+            case RABBIT_FREEZING:
+                return true;
             default:
             {
                 throw new AssertionError(

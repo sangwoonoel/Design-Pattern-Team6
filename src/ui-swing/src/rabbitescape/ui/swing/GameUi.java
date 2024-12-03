@@ -649,7 +649,7 @@ public class GameUi implements StatsChangedListener
         }
 
         int numLeft = gameLaunch.addToken( tileX, tileY, chosenAbility );
-        menu.abilities.get( chosenAbility ).setNumLeft( numLeft );
+        menu.abilities.get( chosenAbility ).stateChange( numLeft );
 
         updateChosenAbility();
     }
@@ -663,8 +663,15 @@ public class GameUi implements StatsChangedListener
 
     private void updateChosenAbility()
     {
-        topBar.abilityChanged(
-            chosenAbility, gameLaunch.world.abilities.get( chosenAbility ) );
+        if ( chosenAbility.isBasic )
+        {
+            topBar.abilityChanged(
+                chosenAbility, gameLaunch.world.abilities.get( chosenAbility ) );
+        }
+        else
+        {
+            topBar.buyableAbilityChanged( chosenAbility, gameLaunch.world.abilities.get( chosenAbility ) );
+        }
     }
 
     @Override

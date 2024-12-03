@@ -190,7 +190,10 @@ public class WorldChanges
         }
 
         tokensToAdd.add( new Token( x, y, type, world ) );
-        world.abilities.put( type, numLeft - 1 );
+
+        if ( type.isBasic ) {
+            world.abilities.put( type, numLeft - 1 );
+        }
     }
 
     public synchronized void removeToken( Token thing )
