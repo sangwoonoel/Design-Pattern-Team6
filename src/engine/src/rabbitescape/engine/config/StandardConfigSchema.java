@@ -32,6 +32,12 @@ public class StandardConfigSchema
             String.valueOf( 4 ),
             "Smaller values lead to more particles"
         );
+
+        definition.set(
+                CFG_LEVELS_SCORES,
+                "{}",
+                "Scores for each level in the game."
+        );
     }
 
 }
