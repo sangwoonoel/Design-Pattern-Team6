@@ -33,10 +33,7 @@ import static rabbitescape.engine.util.Util.*;
 import static rabbitescape.engine.i18n.Translation.*;
 import static rabbitescape.ui.swing.SwingConfigSetup.*;
 
-import rabbitescape.engine.CompletedLevelWinListener;
-import rabbitescape.engine.IgnoreLevelWinListener;
-import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.MultiLevelWinListener;
+import rabbitescape.engine.*;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigKeys;
 import rabbitescape.engine.config.ConfigTools;
@@ -145,6 +142,7 @@ public class MenuUi
 
     private final JPanel menuPanel;
     private final LevelsCompleted levelsCompleted;
+    private final LevelsScore levelsScore;
     private SideMenu sidemenu;
 
     public MenuUi(
@@ -172,6 +170,9 @@ public class MenuUi
 
         this.levelsCompleted = new ByNameConfigBasedLevelsCompleted(
             uiConfig, levelsList );
+        this.levelsScore = new ByNameConfigBasedLevelsScore(
+                uiConfig,levelsList
+        );
 
         stack.push(
             MenuDefinition.mainMenu( this.levelsCompleted, levelsList, true )
@@ -410,6 +411,7 @@ public class MenuUi
         return new MultiLevelWinListener(
             new CompletedLevelWinListener(
                 item.levelsDir, item.levelNumber, levelsCompleted ),
+            new ScoreWinListener(item.levelsDir, item.levelNumber, levelsScore),
             new UpdateSwingMenuLevelWinListener( this )
         );
     }
