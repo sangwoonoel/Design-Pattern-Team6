@@ -339,6 +339,10 @@ public class TextWorldManip
         }
         else
         {
+            if (key.equals( "freeze" ))
+            {
+                return;
+            }
             lines.add( ":" + key + "=" + value );
         }
     }

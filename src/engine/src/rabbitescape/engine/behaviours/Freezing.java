@@ -9,7 +9,7 @@ import static rabbitescape.engine.Token.Type.freeze;
 
 public class Freezing extends Behaviour
 {
-
+    public static final int FREEZING_STEPS = 3;
     int stepsOfFreezing;
 
     @Override
@@ -35,7 +35,7 @@ public class Freezing extends Behaviour
 
         if ( triggered )
         {
-            stepsOfFreezing = 3; // Freezing 지속 시간
+            stepsOfFreezing = FREEZING_STEPS; // Freezing 지속 시간
             return RABBIT_FREEZING;
         }
 

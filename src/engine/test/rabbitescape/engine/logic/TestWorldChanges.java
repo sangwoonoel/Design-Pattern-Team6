@@ -128,39 +128,6 @@ public class TestWorldChanges
             ":*=t{index:6}"
         };
 
-        String[] reverted = new String[]
-            {
-                ":name=My Round X",
-                ":description=Go and\nreturn",
-                ":author_name=dave",
-                ":author_url=",
-                ":hint.1=",
-                ":hint.2=",
-                ":hint.3=",
-                ":num_rabbits=25",
-                ":num_to_save=4",
-                ":rabbit_delay=2",
-                ":music=",
-                ":num_saved=5",
-                ":num_killed=4",
-                ":num_waiting=16",
-                ":rabbit_index_count=7",
-                ":paused=false",
-                ":bash=1",
-                ":bridge=3",
-                ":dig=2",
-                ":freeze=10",
-                "######",
-                "#i   #",
-                "# ***#",
-                "######",
-                ":*=r{index:2}",
-                ":*=r{index:4}",
-                ":*=t{index:6}"
-            };
-
-
-
         World world = TextWorldManip.createWorld( worldText );
         Token tok0 = world.getTokenAt( 1, 1 );
         Rabbit rabbit0 = world.rabbits.get( 0 );
@@ -184,7 +151,7 @@ public class TestWorldChanges
 
         assertThat(
             TextWorldManip.renderCompleteWorld( world, true ),
-            equalTo( reverted )
+            equalTo( worldText )
         );
 
         // They should have no effect, even if you apply them
@@ -192,7 +159,7 @@ public class TestWorldChanges
 
         assertThat(
             TextWorldManip.renderCompleteWorld( world, true ),
-            equalTo( reverted )
+            equalTo( worldText )
         );
     }
 }
