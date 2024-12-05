@@ -339,9 +339,12 @@ public class TextWorldManip
         }
         else
         {
-            if (key.equals( "freeze" ))
+            for (Token.Type t : Token.getSpecialToken())
             {
-                return;
+                if (key.equals( t.name() ))
+                {
+                    return;
+                }
             }
             lines.add( ":" + key + "=" + value );
         }
