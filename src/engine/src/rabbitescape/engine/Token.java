@@ -22,6 +22,13 @@ public class Token extends Thing
         private static final long serialVersionUID = 1L;
     }
 
+    public static Token.Type[] getSpecialToken()
+    {
+        return new Token.Type[] {
+            Type.freeze
+        };
+    }
+
     public static enum Type
     {
         bash(true),
