@@ -57,9 +57,6 @@ public abstract class SingleGameEntryPoint
 
             gameLaunch.run( args );
 
-            gameLaunch.showResult();
-
-            // point 로직
 
             int calculatedStar = scoreCalculator.calculate( world );
 
@@ -82,6 +79,10 @@ public abstract class SingleGameEntryPoint
 
             out.println("[DEBUG] Points for level '" + levelName + "': " + recordedPoint);
             out.println("[DEBUG] Total points: " + pointAwarder.getTotalPoints());
+
+            gameLaunch.showResult(  new GameResultMeta( newSTar, recordedPoint ) );
+
+
         }
         catch( LoadWorldFile.Failed e )
         {

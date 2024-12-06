@@ -24,11 +24,13 @@ import rabbitescape.engine.solution.SolutionRecorderTemplate;
 
 import rabbitescape.engine.util.Util;
 import rabbitescape.render.GameLaunch;
+import rabbitescape.render.GameResultMeta;
 import rabbitescape.render.androidlike.Sound;
 import rabbitescape.render.gameloop.GameLoop;
 import rabbitescape.render.gameloop.GeneralPhysics;
 import rabbitescape.render.gameloop.Physics;
 import rabbitescape.render.gameloop.WaterAnimation;
+import rabbitescape.render.util.StarStringBuilder;
 import rabbitescape.ui.swing.SwingGameInit.WhenUiReady;
 
 public class SwingGameLaunch implements GameLaunch
@@ -397,7 +399,7 @@ public class SwingGameLaunch implements GameLaunch
     /**
      * Not called from within event loop.
      */
-    private void showWonDialog()
+    private void showWonDialog(GameResultMeta gameResultMeta)
     {
         if (inDemoMode())
         {
@@ -412,6 +414,8 @@ public class SwingGameLaunch implements GameLaunch
             return;
         }
 
+        String stars = StarStringBuilder.getStars( gameResultMeta.stars, 3 );
+
         boolean levelSetComplete =
             (
                 menu != null &&
@@ -421,11 +425,15 @@ public class SwingGameLaunch implements GameLaunch
         if ( levelSetComplete ) {
             Map<String, Object> values = DialogText.statsValues( world );
             values.put( "levelset", menu.name );
+            values.put( "stars", stars );
+            values.put( "points", gameResultMeta.gainedPoints );
 
             showDialog(
                 t( "Level set complete!" ),
                 t(
                     "Saved: ${num_saved}  Needed: ${num_to_save}\n" +
+                    "Stars: ${stars}\n" +
+                        "Gained points: ${points}\n" +
                     "Well done! You have completed the ${levelset} levels!",
                     values
                 ),
@@ -434,11 +442,18 @@ public class SwingGameLaunch implements GameLaunch
         }
         else
         {
+            Map<String, Object> values
+                = DialogText.statsValues( world );
+            values.put( "stars", stars );
+            values.put( "points", gameResultMeta.gainedPoints );
+
             showDialog(
                 t( "You won!" ),
                 t(
-                    "Saved: ${num_saved}  Needed: ${num_to_save}",
-                    DialogText.statsValues( world )
+                    "Stars: ${stars}\n" +
+                    "Saved: ${num_saved}  Needed: ${num_to_save}\n" +
+                    "Gained points: ${points}",
+                    values
                 ),
                 new Object[]{ t( "Ok" ) }
             );
@@ -474,13 +489,13 @@ public class SwingGameLaunch implements GameLaunch
     }
 
     @Override
-    public void showResult()
+    public void showResult( GameResultMeta gameResultMeta )
     {
         switch ( world.completionState() )
         {
             case WON:
             {
-                showWonDialog();
+                showWonDialog( gameResultMeta );
                 break;
             }
             case LOST:

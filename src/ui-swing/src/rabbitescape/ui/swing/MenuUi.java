@@ -46,6 +46,7 @@ import rabbitescape.engine.util.RealFileSystem;
 import rabbitescape.engine.util.Util.IdxObj;
 import rabbitescape.render.BitmapCache;
 import rabbitescape.render.androidlike.Sound;
+import rabbitescape.render.util.StarStringBuilder;
 
 public class MenuUi
 {
@@ -256,21 +257,7 @@ public class MenuUi
                     stars = 0;
                 }
 
-                StringBuilder starStr = new StringBuilder();
-                //total star 3, and left fill with unfilled star
-                for (int i = 0; i < 3; i++)
-                {
-                    if (i < stars)
-                    {
-                        starStr.append( "★" );
-                    }
-                    else
-                    {
-                        starStr.append( "☆" );
-                    }
-                }
-
-                buttonTitle = item.object.name + "    " + starStr;
+                buttonTitle = item.object.name + "    " + StarStringBuilder.getStars( stars, 3 );
             }
             else
             {

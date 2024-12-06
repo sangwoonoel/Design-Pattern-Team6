@@ -13,6 +13,7 @@ import rabbitescape.engine.solution.SandboxGame;
 import rabbitescape.engine.textworld.TextWorldManip;
 import rabbitescape.engine.util.MegaCoder;
 import rabbitescape.render.GameLaunch;
+import rabbitescape.render.GameResultMeta;
 
 public class TextGameLaunch implements GameLaunch
 {
@@ -154,7 +155,7 @@ public class TextGameLaunch implements GameLaunch
     }
 
     @Override
-    public void showResult()
+    public void showResult( GameResultMeta gameResultMeta )
     {
         if ( sandboxGame.getWorld().completionState() == CompletionState.WON )
         {
