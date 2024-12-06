@@ -339,6 +339,8 @@ public class TextWorldManip
         }
         else
         {
+            // Don't add the key if it's a special token
+            // Because it is inserted when world initialization
             for (Token.Type t : Token.getSpecialToken())
             {
                 if (key.equals( t.name() ))
