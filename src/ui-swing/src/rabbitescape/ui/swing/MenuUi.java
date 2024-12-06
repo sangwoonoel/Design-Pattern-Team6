@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.swing.JButton;
@@ -29,6 +30,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import static rabbitescape.engine.config.ConfigKeys.CFG_LEVELS_SCORES;
 import static rabbitescape.engine.util.Util.*;
 import static rabbitescape.engine.i18n.Translation.*;
 import static rabbitescape.ui.swing.SwingConfigSetup.*;
@@ -233,14 +235,51 @@ public class MenuUi
         label.setPreferredSize( buttonSize );
         menuPanel.add( label, constraints( 0 ) );
 
+        Map<String, Integer> starMaps = ConfigTools.getMap(
+            uiConfig, CFG_LEVELS_SCORES, Integer.class );
+
         for ( IdxObj<MenuItem> item : enumerate1( menu.items ) )
         {
             if ( item.object.hidden && !TapTimer.matched )
             {
                 continue;
             }
+
+            String buttonTitle;
+            if ( menu.intro.equals( "Choose a level:" ) )
+            {
+                LevelMenuItem menuItem = ( LevelMenuItem )item.object;
+                Integer stars = starMaps.get( menuItem.fileName );
+
+                if (stars == null)
+                {
+                    stars = 0;
+                }
+
+                StringBuilder starStr = new StringBuilder();
+                //total star 3, and left fill with unfilled star
+                for (int i = 0; i < 3; i++)
+                {
+                    if (i < stars)
+                    {
+                        starStr.append( "★" );
+                    }
+                    else
+                    {
+                        starStr.append( "☆" );
+                    }
+                }
+
+                buttonTitle = item.object.name + "    " + starStr;
+            }
+            else
+            {
+                buttonTitle = item.object.name;
+            }
+
             JButton button = new JButton(
-                t( item.object.name, item.object.nameParams ) );
+                t( buttonTitle, item.object.nameParams )
+            );
 
             button.setBackground( buttonColor );
             button.addActionListener(
