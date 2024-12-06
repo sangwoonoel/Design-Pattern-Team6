@@ -80,21 +80,21 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
         if ( 1 == args.length && args[0].endsWith( ".rel" ) )
         { // Single arg must level file
             go(
-                    args,
-                    SwingGameLaunch.NOT_DEMO_MODE,
-                    false
+                args,
+                SwingGameLaunch.NOT_DEMO_MODE,
+                false
             );
             System.exit( 0 );
         }
 
         CommandLineOption level =
-                new CommandLineOption( "--level",        true );
+            new CommandLineOption( "--level",        true );
         CommandLineOption solution =
-                new CommandLineOption( "--solution",     true );
+            new CommandLineOption( "--solution",     true );
         CommandLineOption anim =
-                new CommandLineOption( "--animation",    false );
+            new CommandLineOption( "--animation",    false );
         CommandLineOption dump =
-                new CommandLineOption( "--dump",         false );
+            new CommandLineOption( "--dump",         false );
 
         CommandLineOptionSet.parse( args,
                 level, solution, anim, dump);
@@ -165,10 +165,10 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
 
     @Override
     public GameLaunch createGameLaunch(
-            World world, LevelWinListener winListener )
+        World world, LevelWinListener winListener )
     {
         SwingGameInit init = new SwingGameInit(
-                bitmapCache, uiConfig, frame, menuUi );
+            bitmapCache, uiConfig, frame, menuUi );
 
         SwingUtilities.invokeLater( init );
 

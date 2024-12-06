@@ -42,11 +42,11 @@ public class TestMain
         assertThat(status, not(equalTo(0)));
 
         assertThat(
-                out.toString(),
-                equalTo(
-                        "File 'file1' does not exist.\n"
-                                + "Unable to load world file 'file1'.\n"
-                )
+            out.toString(),
+            equalTo(
+                    "File 'file1' does not exist.\n"
+                            + "Unable to load world file 'file1'.\n"
+            )
         );
     }
 
@@ -71,13 +71,13 @@ public class TestMain
         assertThat(status, not(equalTo(0)));
 
         assertThat(
-                out.toString(),
-                equalTo(
-                        "Line number 2 (#) has the wrong length in text world lines:\n"
-                                + "##\n"
-                                + "#\n"
-                                + "Unable to load world file 'file1'.\n"
-                )
+            out.toString(),
+            equalTo(
+                    "Line number 2 (#) has the wrong length in text world lines:\n"
+                            + "##\n"
+                            + "#\n"
+                            + "Unable to load world file 'file1'.\n"
+            )
         );
     }
 
@@ -102,14 +102,14 @@ public class TestMain
         assertThat(status, not(equalTo(0)));
 
         assertThat(
-                out.toString(),
-                equalTo(
-                        "Line number 2 contains an unknown character 'z' "
-                                + "in text world lines:\n"
-                                + "##\n"
-                                + "#z\n"
-                                + "Unable to load world file 'file1'.\n"
-                )
+            out.toString(),
+            equalTo(
+                    "Line number 2 contains an unknown character 'z' "
+                            + "in text world lines:\n"
+                            + "##\n"
+                            + "#z\n"
+                            + "Unable to load world file 'file1'.\n"
+            )
         );
     }
 
