@@ -65,7 +65,6 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
 
     @Override
     protected int calculatePoints(World world) {
-        // 예: 저장된 토끼 수와 남은 토끼 수를 점수로 사용
         int pointsFromSavedRabbits = world.num_saved * 10;
         int pointsFromRemainingRabbits = world.numRabbitsOut() * 5;
 
