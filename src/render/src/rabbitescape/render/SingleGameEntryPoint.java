@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.util.Locale;
 
 import rabbitescape.engine.*;
+import rabbitescape.engine.points.PointManager;
 import rabbitescape.engine.util.FileSystem;
 
 import rabbitescape.engine.points.PointAwarder;
@@ -72,13 +73,10 @@ public abstract class SingleGameEntryPoint
 
             System.out.println( "[DEBUG] NewStar = " + newSTar );
 
-            int recordedPoint = pointAwarder.recordPoint(
-                world,
-                levelName
-            );// 레벨별 및 총 점수 업데이트
+            int recordedPoint = pointAwarder.recordPoint( world );
 
             out.println("[DEBUG] Points for level '" + levelName + "': " + recordedPoint);
-            out.println("[DEBUG] Total points: " + pointAwarder.getTotalPoints());
+            out.println("[DEBUG] Total points: " + "TODO");
 
             gameLaunch.showResult(  new GameResultMeta( newSTar, recordedPoint ) );
 
