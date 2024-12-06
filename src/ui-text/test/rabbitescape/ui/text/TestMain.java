@@ -9,7 +9,9 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import rabbitescape.engine.BasicStarRecoder;
 import rabbitescape.engine.IgnoreLevelWinListener;
+import rabbitescape.engine.StarRecoder;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigFile;
 import rabbitescape.engine.config.ConfigSchema;
@@ -30,9 +32,10 @@ public class TestMain
 
         Config config = createTestConfig(); // Config 생성
         PointAwarder pointAwarder = new PointAwarder(config);
+        StarRecoder starRecoder = new BasicStarRecoder(config);
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder
+                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder
         );
 
         int status = main.launchGame(
@@ -59,9 +62,11 @@ public class TestMain
 
         Config config = createTestConfig(); // Config 생성
         PointAwarder pointAwarder = new PointAwarder(config);
+        StarRecoder starRecoder = new BasicStarRecoder(config);
+
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder
+                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder
         );
 
         int status = main.launchGame(
@@ -90,9 +95,9 @@ public class TestMain
 
         Config config = createTestConfig(); // Config 생성
         PointAwarder pointAwarder = new PointAwarder(config);
-
+        StarRecoder starRecoder = new BasicStarRecoder(config);
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder
+                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder
         );
 
         int status = main.launchGame(

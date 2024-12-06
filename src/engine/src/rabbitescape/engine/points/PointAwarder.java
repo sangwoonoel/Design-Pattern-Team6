@@ -23,7 +23,7 @@ public class PointAwarder {
     }
 
     // 점수 기록 (전략 패턴 적용 가능)
-    public void record(String levelName, int points) {
+    public void recordPoint(String levelName, int points) {
         // PointManager를 사용하여 점수 추가
         pointManager.add(points);
 

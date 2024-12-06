@@ -30,6 +30,6 @@ public class ByNameConfigBasedLevelsScore implements LevelsScore{
         String completedName = canonicalName( newlyCompleted.name );
 
         StarRecoder starRecoder = new BasicStarRecoder(config);
-        starRecoder.record(completedName, score);
+        starRecoder.recordStar(completedName, score);
     }
 }

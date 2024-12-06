@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import javax.swing.SwingUtilities;
 
+import rabbitescape.engine.BasicStarRecoder;
 import rabbitescape.engine.LevelWinListener;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;
@@ -51,7 +52,7 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
         LevelsMenu menu
     )
     {
-        super( fs, out, locale, new PointAwarder(uiConfig) );
+        super( fs, out, locale, new PointAwarder( uiConfig ), new BasicStarRecoder( uiConfig ) );
         this.bitmapCache = bitmapCache;
         this.uiConfig = uiConfig;
         this.frame = frame;

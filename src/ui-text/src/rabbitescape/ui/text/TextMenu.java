@@ -6,9 +6,7 @@ import java.util.Stack;
 import static rabbitescape.engine.util.Util.*;
 import static rabbitescape.engine.i18n.Translation.*;
 
-import rabbitescape.engine.CompletedLevelWinListener;
-import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.MultiLevelWinListener;
+import rabbitescape.engine.*;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.TapTimer;
 import rabbitescape.engine.err.RabbitEscapeException;
@@ -58,6 +56,7 @@ public class TextMenu
     private final LevelsCompleted levelsCompleted;
     private final Stack<Menu> stack = new Stack<Menu>();
     private final PointAwarder pointAwarder;
+    private final StarRecoder starRecoder;
 
     public TextMenu( FileSystem fs, Terminal terminal, Config config )
     {
@@ -67,6 +66,7 @@ public class TextMenu
         this.levelsCompleted = new ByNameConfigBasedLevelsCompleted(
             config, levelsList );
         this.pointAwarder = new PointAwarder(config);
+        this.starRecoder = new BasicStarRecoder( config );
     }
 
     public void run()
@@ -124,7 +124,7 @@ public class TextMenu
     {
         LevelMenuItem levelItem = (LevelMenuItem)item;
 
-        new TextSingleGameEntryPoint( fs, terminal.out, terminal.locale, pointAwarder )
+        new TextSingleGameEntryPoint( fs, terminal.out, terminal.locale, pointAwarder, starRecoder )
             .launchGame(
                 new String[] { levelItem.fileName },
                 winListeners( levelItem )
