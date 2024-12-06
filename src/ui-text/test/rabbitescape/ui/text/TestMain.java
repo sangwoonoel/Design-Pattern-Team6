@@ -10,9 +10,15 @@ import java.util.Locale;
 import org.junit.Test;
 
 import rabbitescape.engine.IgnoreLevelWinListener;
+import rabbitescape.engine.config.Config;
+import rabbitescape.engine.config.ConfigFile;
+import rabbitescape.engine.config.ConfigSchema;
+import rabbitescape.engine.config.RealConfigUpgrades;
 import rabbitescape.engine.util.FakeFileSystem;
 import rabbitescape.engine.util.FileSystem;
 import rabbitescape.engine.util.NothingExistsFileSystem;
+
+import rabbitescape.engine.points.PointAwarder;
 
 public class TestMain
 {
@@ -22,19 +28,24 @@ public class TestMain
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         FileSystem fs = new NothingExistsFileSystem();
 
+        Config config = createTestConfig(); // Config 생성
+        PointAwarder pointAwarder = new PointAwarder(config);
+
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-            fs, new PrintStream( out ), Locale.ENGLISH );
+                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder
+        );
 
         int status = main.launchGame(
-            new String[] { "file1" }, new IgnoreLevelWinListener() );
+                new String[] { "file1" }, new IgnoreLevelWinListener()
+        );
 
-        assertThat( status, not( equalTo( 0 ) ) );
+        assertThat(status, not(equalTo(0)));
 
         assertThat(
             out.toString(),
             equalTo(
-                "File 'file1' does not exist.\n"
-                + "Unable to load world file 'file1'.\n"
+                    "File 'file1' does not exist.\n"
+                            + "Unable to load world file 'file1'.\n"
             )
         );
     }
@@ -44,23 +55,28 @@ public class TestMain
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         String[] badLevel = new String[] { "##", "#" };
-        FileSystem fs = new FakeFileSystem( "file1", badLevel );
+        FileSystem fs = new FakeFileSystem("file1", badLevel);
+
+        Config config = createTestConfig(); // Config 생성
+        PointAwarder pointAwarder = new PointAwarder(config);
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-            fs, new PrintStream( out ), Locale.ENGLISH );
+                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder
+        );
 
         int status = main.launchGame(
-            new String[] { "file1" }, new IgnoreLevelWinListener() );
+                new String[] { "file1" }, new IgnoreLevelWinListener()
+        );
 
-        assertThat( status, not( equalTo( 0 ) ) );
+        assertThat(status, not(equalTo(0)));
 
         assertThat(
             out.toString(),
             equalTo(
-                "Line number 2 (#) has the wrong length in text world lines:\n"
-                + "##\n"
-                + "#\n"
-                + "Unable to load world file 'file1'.\n"
+                    "Line number 2 (#) has the wrong length in text world lines:\n"
+                            + "##\n"
+                            + "#\n"
+                            + "Unable to load world file 'file1'.\n"
             )
         );
     }
@@ -70,25 +86,38 @@ public class TestMain
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         String[] badLevel = new String[] { "##", "#z" };
-        FileSystem fs = new FakeFileSystem( "file1", badLevel );
+        FileSystem fs = new FakeFileSystem("file1", badLevel);
+
+        Config config = createTestConfig(); // Config 생성
+        PointAwarder pointAwarder = new PointAwarder(config);
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-            fs, new PrintStream( out ), Locale.ENGLISH );
+                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder
+        );
 
         int status = main.launchGame(
-            new String[] { "file1" }, new IgnoreLevelWinListener() );
+                new String[] { "file1" }, new IgnoreLevelWinListener()
+        );
 
-        assertThat( status, not( equalTo( 0 ) ) );
+        assertThat(status, not(equalTo(0)));
 
         assertThat(
             out.toString(),
             equalTo(
-                "Line number 2 contains an unknown character 'z' "
-                + "in text world lines:\n"
-                + "##\n"
-                + "#z\n"
-                + "Unable to load world file 'file1'.\n"
+                    "Line number 2 contains an unknown character 'z' "
+                            + "in text world lines:\n"
+                            + "##\n"
+                            + "#z\n"
+                            + "Unable to load world file 'file1'.\n"
             )
         );
+    }
+
+    private Config createTestConfig()
+    {
+        ConfigSchema schema = new ConfigSchema();
+        FileSystem fs = new FakeFileSystem();
+        ConfigFile storage = new ConfigFile(fs, "/test/config.properties");
+        return new Config(schema, storage, RealConfigUpgrades.realConfigUpgrades());
     }
 }

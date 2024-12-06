@@ -10,4 +10,8 @@ public class ConfigKeys
     public static final String
         CFG_WATER_CONTENTS_PER_PARTICLE = "water.cpp";
     public static final String CFG_LEVELS_SCORES = "levels.scores"; // 레벨당 기록을 나타내는 새 키 추가
+
+    // 새 설정 키 추가
+    public static final String CFG_TOTAL_POINTS = "total.points"; // 총 점수 저장 키
+    public static final String CFG_LEVEL_POINTS = "level.points"; // 레벨별 점수 저장 키
 }

@@ -24,6 +24,8 @@ import rabbitescape.engine.menu.MenuItem;
 import rabbitescape.engine.menu.MenuItem.Type;
 import rabbitescape.engine.util.FileSystem;
 
+import rabbitescape.engine.points.PointAwarder;
+
 public class TextMenu
 {
     public static class InputError extends RabbitEscapeException
@@ -55,6 +57,7 @@ public class TextMenu
     private final LevelsList levelsList;
     private final LevelsCompleted levelsCompleted;
     private final Stack<Menu> stack = new Stack<Menu>();
+    private final PointAwarder pointAwarder;
 
     public TextMenu( FileSystem fs, Terminal terminal, Config config )
     {
@@ -63,6 +66,7 @@ public class TextMenu
         this.levelsList = LoadLevelsList.load( MenuDefinition.allLevels );
         this.levelsCompleted = new ByNameConfigBasedLevelsCompleted(
             config, levelsList );
+        this.pointAwarder = new PointAwarder(config);
     }
 
     public void run()
@@ -120,7 +124,7 @@ public class TextMenu
     {
         LevelMenuItem levelItem = (LevelMenuItem)item;
 
-        new TextSingleGameEntryPoint( fs, terminal.out, terminal.locale )
+        new TextSingleGameEntryPoint( fs, terminal.out, terminal.locale, pointAwarder )
             .launchGame(
                 new String[] { levelItem.fileName },
                 winListeners( levelItem )

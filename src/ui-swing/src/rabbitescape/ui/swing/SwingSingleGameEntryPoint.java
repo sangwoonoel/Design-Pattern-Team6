@@ -22,6 +22,8 @@ import rabbitescape.render.GameLaunch;
 import rabbitescape.render.SingleGameEntryPoint;
 import rabbitescape.render.androidlike.Sound;
 
+import rabbitescape.engine.points.PointAwarder;
+
 public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
 {
     private final BitmapCache<SwingBitmap> bitmapCache;
@@ -49,7 +51,7 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
         LevelsMenu menu
     )
     {
-        super( fs, out, locale );
+        super( fs, out, locale, new PointAwarder(uiConfig) );
         this.bitmapCache = bitmapCache;
         this.uiConfig = uiConfig;
         this.frame = frame;
@@ -61,14 +63,26 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
         this.menu = menu;
     }
 
+    @Override
+    protected int calculatePoints(World world) {
+        int pointsFromSavedRabbits = world.num_saved * 10;
+        int pointsFromRemainingRabbits = world.numRabbitsOut() * 5;
+
+        // 추가 보너스: 토끼가 모두 대기 없이 도착했다면 보너스
+        int bonusPoints = (world.num_waiting == 0) ? 50 : 0;
+
+        return pointsFromSavedRabbits + pointsFromRemainingRabbits + bonusPoints;
+    }
+
+
     public static void entryPoint( String[] args )
     {
         if ( 1 == args.length && args[0].endsWith( ".rel" ) )
         { // Single arg must level file
-            go( 
-                args, 
-                SwingGameLaunch.NOT_DEMO_MODE, 
-                false 
+            go(
+                args,
+                SwingGameLaunch.NOT_DEMO_MODE,
+                false
             );
             System.exit( 0 );
         }
@@ -83,7 +97,7 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
             new CommandLineOption( "--dump",         false );
 
         CommandLineOptionSet.parse( args,
-                                    level, solution, anim, dump);
+                level, solution, anim, dump);
         try
         {
             if ( anim.isPresent() )
@@ -94,15 +108,15 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
             if ( solution.isPresent() )
             {
                 go( new String[] {level.getValue()},
-                    solution.getValue(), dump.isPresent() );
+                        solution.getValue(), dump.isPresent() );
                 System.exit( 0 );
             }
             if ( level.isPresent() )
             {
-                go( 
-                    new String[] {level.getValue()},
-                    SwingGameLaunch.NOT_DEMO_MODE, 
-                    false 
+                go(
+                        new String[] {level.getValue()},
+                        SwingGameLaunch.NOT_DEMO_MODE,
+                        false
                 );
                 System.exit( 0 );
             }
@@ -115,35 +129,35 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
 
     }
 
-    private static void go( 
-        String[] fileName, 
-        String solution,
-        boolean frameDumping 
+    private static void go(
+            String[] fileName,
+            String solution,
+            boolean frameDumping
     )
     {
 
         Config cfg = SwingConfigSetup.createConfig();
 
         Sound sound = SwingSound.create(
-            ConfigTools.getBool( cfg, CFG_MUTED ) );
+                ConfigTools.getBool( cfg, CFG_MUTED ) );
 
         SingleGameEntryPoint m = new SwingSingleGameEntryPoint(
-            new RealFileSystem(),
-            System.out,
-            Locale.getDefault(),
-            new BitmapCache<>(
-                new SwingBitmapLoader(),
-                new SwingBitmapScaler(),
-                SwingMain.cacheSize()
-            ),
-            cfg,
-            new MainJFrame( cfg, sound ),
-            sound,
-            null,
-            solution,
-            frameDumping,
-            null,
-            null
+                new RealFileSystem(),
+                System.out,
+                Locale.getDefault(),
+                new BitmapCache<>(
+                        new SwingBitmapLoader(),
+                        new SwingBitmapScaler(),
+                        SwingMain.cacheSize()
+                ),
+                cfg,
+                new MainJFrame( cfg, sound ),
+                sound,
+                null,
+                solution,
+                frameDumping,
+                null,
+                null
         );
 
         m.run( fileName );
@@ -159,6 +173,6 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
         SwingUtilities.invokeLater( init );
 
         return new SwingGameLaunch( init, world, winListener, sound, uiConfig,
-                                    out, solution, frameDumping, menuItem, menu );
+                out, solution, frameDumping, menuItem, menu );
     }
 }
