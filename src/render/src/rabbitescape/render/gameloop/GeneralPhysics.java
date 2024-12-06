@@ -208,13 +208,28 @@ public class GeneralPhysics implements Physics
             && tileX < world.size.width
             && tileY >= 0
             && tileY < world.size.height
-            && world.abilities.get( ability ) > 0
+            && isTokenAvailable( ability )
         )
         {
             worldModifier.addToken( tileX, tileY, ability );
         }
 
         return world.abilities.get( ability );
+    }
+
+    private boolean isTokenAvailable( Token.Type ability )
+    {
+        if ( ability.isBasic )
+        {
+            return world.abilities.get( ability ) > 0;
+        }
+        else
+        {
+            /**
+             * TODO: Implement special ability availability -- using the point
+             */
+            return true;
+        }
     }
 
     public void addStatsChangedListener( StatsChangedListener listener )
