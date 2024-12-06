@@ -59,11 +59,4 @@ public class TextSingleGameEntryPoint extends SingleGameEntryPoint
             new Terminal( System.in, System.out, Locale.getDefault() )
         );
     }
-
-    @Override
-    protected int calculatePoints(World world)
-    {
-        // 임시
-        return world.num_saved;
-    }
 }

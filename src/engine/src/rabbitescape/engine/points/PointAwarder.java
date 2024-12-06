@@ -1,15 +1,19 @@
 package rabbitescape.engine.points;
 
 import java.util.Map;
+
+import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 
 public class PointAwarder {
     private final Config config;
     private final PointManager pointManager; // PointManager 객체 추가
+    private final PointCalculator pointCalculator;
 
     public PointAwarder(Config config) {
         this.config = config;
+        this.pointCalculator = new DefaultPointCalculator();
 
         // Config에서 초기 총 점수를 로드하거나 기본값으로 설정
         int initialPoints;
@@ -23,8 +27,9 @@ public class PointAwarder {
     }
 
     // 점수 기록 (전략 패턴 적용 가능)
-    public void recordPoint(String levelName, int points) {
+    public int recordPoint( World world, String levelName ) {
         // PointManager를 사용하여 점수 추가
+        int points = pointCalculator.calculate( world );
         pointManager.add(points);
 
         // 총 점수 업데이트
@@ -38,6 +43,8 @@ public class PointAwarder {
 
         // 설정 저장
         config.save();
+
+        return points;
     }
 
     // 총 점수 가져오기

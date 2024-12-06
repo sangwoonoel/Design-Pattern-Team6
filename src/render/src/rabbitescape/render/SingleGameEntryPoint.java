@@ -63,17 +63,25 @@ public abstract class SingleGameEntryPoint
 
             int calculatedStar = scoreCalculator.calculate( world );
 
-            System.out.println( "calculatedStar = " + calculatedStar );
+            int beforeStar = starRecoder.getStar( levelName );
+
+            System.out.println( "[DEBUG] BeforeStar = " + beforeStar );
+
+            System.out.println( "[DEBUG] CalculatedStar = " + calculatedStar );
 
             starRecoder.recordStar( levelName , calculatedStar );
 
-            int levelPoints = calculatePoints( world ); // 점수 계산
+            int newSTar = starRecoder.getStar( levelName );
 
-            pointAwarder.recordPoint( levelName, levelPoints ); // 레벨별 및 총 점수 업데이트
+            System.out.println( "[DEBUG] NewStar = " + newSTar );
 
+            int recordedPoint = pointAwarder.recordPoint(
+                world,
+                levelName
+            );// 레벨별 및 총 점수 업데이트
 
-            out.println("Points for level '" + levelName + "': " + levelPoints);
-            out.println("Total points: " + pointAwarder.getTotalPoints());
+            out.println("[DEBUG] Points for level '" + levelName + "': " + recordedPoint);
+            out.println("[DEBUG] Total points: " + pointAwarder.getTotalPoints());
         }
         catch( LoadWorldFile.Failed e )
         {
@@ -88,7 +96,4 @@ public abstract class SingleGameEntryPoint
 
         return SUCCESS;
     }
-
-    protected abstract int calculatePoints(World world);
-
 }
