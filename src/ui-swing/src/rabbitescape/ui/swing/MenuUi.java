@@ -442,6 +442,19 @@ public class MenuUi
 
                 return null;
             }
+
+            @Override
+            protected void done()
+            {
+                SwingUtilities.invokeLater( new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        placeMenu();
+                    }
+                } );
+            }
         }.execute();
     }
 
