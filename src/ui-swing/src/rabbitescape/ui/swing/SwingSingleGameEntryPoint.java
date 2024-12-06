@@ -52,7 +52,7 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
         LevelsMenu menu
     )
     {
-        super( fs, out, locale, new PointAwarder( uiConfig ), new BasicStarRecoder( uiConfig ) );
+        super( fs, out, locale, new PointAwarder(), new BasicStarRecoder( uiConfig ) );
         this.bitmapCache = bitmapCache;
         this.uiConfig = uiConfig;
         this.frame = frame;

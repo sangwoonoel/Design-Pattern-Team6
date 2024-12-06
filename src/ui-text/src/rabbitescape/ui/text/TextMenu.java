@@ -65,7 +65,7 @@ public class TextMenu
         this.levelsList = LoadLevelsList.load( MenuDefinition.allLevels );
         this.levelsCompleted = new ByNameConfigBasedLevelsCompleted(
             config, levelsList );
-        this.pointAwarder = new PointAwarder(config);
+        this.pointAwarder = new PointAwarder();
         this.starRecoder = new BasicStarRecoder( config );
     }
 

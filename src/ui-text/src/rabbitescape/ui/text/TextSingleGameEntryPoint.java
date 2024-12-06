@@ -33,7 +33,7 @@ public class TextSingleGameEntryPoint extends SingleGameEntryPoint
         Locale locale = Locale.getDefault();
         Translation.init( locale );
 
-        PointAwarder pointAwarder = new PointAwarder( TextConfigSetup.createConfig() );
+        PointAwarder pointAwarder = new PointAwarder();
         StarRecoder starRecoder = new BasicStarRecoder( TextConfigSetup.createConfig() );
 
         SingleGameEntryPoint m = new TextSingleGameEntryPoint(

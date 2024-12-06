@@ -27,6 +27,7 @@ public abstract class SingleGameEntryPoint
     private final PointAwarder pointAwarder;
     private final StarRecoder starRecoder;
     private final ScoreCalculator scoreCalculator = new ScoreCalculator();
+    private final PointManager pointManager = PointManager.getInstance();
 
     public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale, PointAwarder pointAwarder, StarRecoder starRecoder )
     {
@@ -76,7 +77,7 @@ public abstract class SingleGameEntryPoint
             int recordedPoint = pointAwarder.recordPoint( world );
 
             out.println("[DEBUG] Points for level '" + levelName + "': " + recordedPoint);
-            out.println("[DEBUG] Total points: " + "TODO");
+            out.println("[DEBUG] Total points: " + pointManager.getPoints());
 
             gameLaunch.showResult(  new GameResultMeta( newSTar, recordedPoint ) );
 

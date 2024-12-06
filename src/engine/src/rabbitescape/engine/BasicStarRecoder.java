@@ -27,7 +27,8 @@ public class BasicStarRecoder implements StarRecoder
     @Override
     public int getStar( String levelName )
     {
-        return starsMap.get(levelName);
+        Integer star = starsMap.get( levelName );
+        return star == null ? 0 : star;
     }
 
     @Override

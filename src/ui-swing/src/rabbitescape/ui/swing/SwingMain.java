@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 import rabbitescape.engine.i18n.Translation;
+import rabbitescape.engine.points.PointManager;
 import rabbitescape.engine.util.RealFileSystem;
 import rabbitescape.render.BitmapCache;
 import rabbitescape.render.androidlike.Sound;
@@ -54,6 +55,13 @@ public class SwingMain
 
         Sound sound = SwingSound.create(
             ConfigTools.getBool( config, CFG_MUTED ) );
+
+
+        /**
+         * Ininitation Global Singleton Object
+         */
+
+        PointManager.init( config );
 
         SwingMain m = new SwingMain(
             new RealFileSystem(),

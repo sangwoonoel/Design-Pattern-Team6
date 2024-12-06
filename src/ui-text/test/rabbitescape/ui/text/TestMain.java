@@ -31,7 +31,7 @@ public class TestMain
         FileSystem fs = new NothingExistsFileSystem();
 
         Config config = createTestConfig(); // Config 생성
-        PointAwarder pointAwarder = new PointAwarder(config);
+        PointAwarder pointAwarder = new PointAwarder();
         StarRecoder starRecoder = new BasicStarRecoder(config);
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
@@ -61,7 +61,7 @@ public class TestMain
         FileSystem fs = new FakeFileSystem("file1", badLevel);
 
         Config config = createTestConfig(); // Config 생성
-        PointAwarder pointAwarder = new PointAwarder(config);
+        PointAwarder pointAwarder = new PointAwarder();
         StarRecoder starRecoder = new BasicStarRecoder(config);
 
 
@@ -94,7 +94,7 @@ public class TestMain
         FileSystem fs = new FakeFileSystem("file1", badLevel);
 
         Config config = createTestConfig(); // Config 생성
-        PointAwarder pointAwarder = new PointAwarder(config);
+        PointAwarder pointAwarder = new PointAwarder();
         StarRecoder starRecoder = new BasicStarRecoder(config);
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
                 fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder

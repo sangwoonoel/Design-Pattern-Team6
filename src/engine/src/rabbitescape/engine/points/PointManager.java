@@ -6,11 +6,30 @@ import rabbitescape.engine.config.ConfigTools;
 public class PointManager {
 
     private static final String TOTAL_POINTS = "total.points";
+    private static PointManager instance = null;
+
+    public static void init( Config config )
+    {
+        if ( instance != null )
+        {
+            throw new IllegalStateException( "PointManager already initialized" );
+        }
+        instance = new PointManager( config );
+    }
+
+    public static PointManager getInstance( )
+    {
+        if ( instance == null )
+        {
+            throw new IllegalStateException( "PointManager not initialized" );
+        }
+        return instance;
+    }
 
     private int point;
     private final Config config;
 
-    public PointManager( Config config )
+    private PointManager( Config config )
     {
         this.config = config;
         try {
