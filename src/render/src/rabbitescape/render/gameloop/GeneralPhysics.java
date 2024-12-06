@@ -3,6 +3,7 @@ package rabbitescape.render.gameloop;
 import java.util.ArrayList;
 import java.util.List;
 
+import rabbitescape.engine.points.PointManager;
 import rabbitescape.engine.solution.PlaceTokenAction;
 import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.engine.solution.SolutionIgnorer;
@@ -63,6 +64,7 @@ public class GeneralPhysics implements Physics
     private final List<StatsChangedListener> statsListeners;
     public final SolutionInterpreter solutionInterpreter;
     private final UiPlayback uiPlayback;
+    private final PointManager pm = PointManager.getInstance();
 
     private static final int FAST_FRAME_SKIP = 3;
 
@@ -225,10 +227,7 @@ public class GeneralPhysics implements Physics
         }
         else
         {
-            /**
-             * TODO: Implement special ability availability -- using the point
-             */
-            return true;
+            return pm.consume( Token.getCostOfSpecialToken( ability ) );
         }
     }
 

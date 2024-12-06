@@ -29,6 +29,15 @@ public class Token extends Thing
         };
     }
 
+    public static int getCostOfSpecialToken( Token.Type type )
+    {
+        switch ( type )
+        {
+            case freeze: return 500;
+            default: throw new UnknownType( type );
+        }
+    }
+
     public static enum Type
     {
         bash(true),
