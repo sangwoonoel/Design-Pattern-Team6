@@ -12,6 +12,8 @@ import rabbitescape.engine.LoadWorldFile;
 import rabbitescape.engine.World;
 import rabbitescape.engine.util.FileSystem;
 
+import rabbitescape.engine.points.PointAwarder;
+
 public abstract class SingleGameEntryPoint
 {
     public abstract GameLaunch createGameLaunch(
@@ -24,12 +26,14 @@ public abstract class SingleGameEntryPoint
     private final FileSystem fs;
     public final PrintStream out;
     private final Locale locale;
+    private final PointAwarder pointAwarder;
 
-    public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale )
+    public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale, PointAwarder pointAwarder )
     {
         this.fs = fs;
         this.out = out;
         this.locale = locale;
+        this.pointAwarder = pointAwarder;
     }
 
     public void run( String[] args )
@@ -54,6 +58,12 @@ public abstract class SingleGameEntryPoint
             gameLaunch.run( args );
 
             gameLaunch.showResult();
+
+            // point 로직
+            int levelPoints = calculatePoints(world); // 점수 계산
+            pointAwarder.record(levelName, levelPoints); // 레벨별 및 총 점수 업데이트
+            out.println("Points for level '" + levelName + "': " + levelPoints);
+            out.println("Total points: " + pointAwarder.getTotalPoints());
         }
         catch( LoadWorldFile.Failed e )
         {
@@ -68,4 +78,7 @@ public abstract class SingleGameEntryPoint
 
         return SUCCESS;
     }
+
+    protected abstract int calculatePoints(World world);
+
 }
