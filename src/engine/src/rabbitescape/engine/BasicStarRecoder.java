@@ -7,35 +7,45 @@ import java.util.Map;
 
 import static rabbitescape.engine.config.ConfigKeys.CFG_LEVELS_SCORES;
 
-public class BasicStarRecoder implements StarRecoder {
-    private Map<String, Integer> starsMap;
-    private Config config;
+public class BasicStarRecoder implements StarRecoder
+{
+    private final Map<String, Integer> starsMap;
+    private final Config config;
     
-    public BasicStarRecoder(Config config) {
+    public BasicStarRecoder(Config config)
+    {
         this.config = config;
         this.starsMap = ConfigTools.getMap(
                 this.config, CFG_LEVELS_SCORES, Integer.class );
     }
     
-    public Map<String, Integer> getStarsMap() {
+    public Map<String, Integer> getStarsMap()
+    {
         return starsMap;
     }
-    
-    public int getStar(String levelName){
+
+    @Override
+    public int getStar( String levelName )
+    {
         return starsMap.get(levelName);
     }
 
-    public void record(String levelName, int star) {
+    @Override
+    public void recordStar( String levelName, int star )
+    {
         // 현재 별과 비교하여 더 높은 기록을 저장
-        int currentStar = starsMap.getOrDefault(levelName, 0);
-        if (star > currentStar) {
+        int currentStar = starsMap.get(levelName) == null ? 0 : starsMap.get(levelName);
+
+        if ( star > currentStar )
+        {
             starsMap.put(levelName, star);
             saveAndUpdateConfig();
         }
     }
 
-    private void saveAndUpdateConfig() {
-        ConfigTools.setMap(config, CFG_LEVELS_SCORES, starsMap);
+    private void saveAndUpdateConfig()
+    {
+        ConfigTools.setMap( config, CFG_LEVELS_SCORES, starsMap );
         config.save();
     }
 }
