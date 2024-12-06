@@ -11,15 +11,18 @@ import rabbitescape.engine.util.RealFileSystem;
 import rabbitescape.render.GameLaunch;
 import rabbitescape.render.SingleGameEntryPoint;
 
+import rabbitescape.engine.points.PointAwarder;
+
 public class TextSingleGameEntryPoint extends SingleGameEntryPoint
 {
     public TextSingleGameEntryPoint( 
         FileSystem fs, 
         PrintStream out,          
-        Locale locale 
+        Locale locale,
+        PointAwarder pointAwarder // 추가
     )
     {
-        super( fs, out, locale );
+        super( fs, out, locale, pointAwarder );
     }
 
     public static void entryPoint( String[] args )
@@ -27,10 +30,13 @@ public class TextSingleGameEntryPoint extends SingleGameEntryPoint
         Locale locale = Locale.getDefault();
         Translation.init( locale );
 
+        PointAwarder pointAwarder = new PointAwarder(TextConfigSetup.createConfig());
+
         SingleGameEntryPoint m = new TextSingleGameEntryPoint(
             new RealFileSystem(), 
             System.out, 
-            locale 
+            locale,
+            pointAwarder
         );
 
         m.run( args );
@@ -47,5 +53,12 @@ public class TextSingleGameEntryPoint extends SingleGameEntryPoint
             winListener,
             new Terminal( System.in, System.out, Locale.getDefault() )
         );
+    }
+
+    @Override
+    protected int calculatePoints(World world)
+    {
+        // 임시
+        return world.num_saved;
     }
 }

@@ -33,6 +33,9 @@ public class SwingConfigSetup
         "menu.window.height";
     public static final String CFG_MUTED = "muted";
 
+    public static final String CFG_TOTAL_POINTS = "total.points";
+    public static final String CFG_LEVEL_POINTS = "level.points";
+
     public static Config createConfig()
     {
         return createConfig(
