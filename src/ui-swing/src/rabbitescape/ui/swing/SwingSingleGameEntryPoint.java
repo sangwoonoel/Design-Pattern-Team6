@@ -37,18 +37,18 @@ public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
     private final LevelsMenu menu;
 
     public SwingSingleGameEntryPoint(
-            FileSystem fs,
-            PrintStream out,
-            Locale locale,
-            BitmapCache<SwingBitmap> bitmapCache,
-            Config uiConfig,
-            MainJFrame frame,
-            Sound sound,
-            MenuUi menuUi,
-            String solution,
-            boolean frameDumping,
-            LevelMenuItem menuItem,
-            LevelsMenu menu
+        FileSystem fs,
+        PrintStream out,
+        Locale locale,
+        BitmapCache<SwingBitmap> bitmapCache,
+        Config uiConfig,
+        MainJFrame frame,
+        Sound sound,
+        MenuUi menuUi,
+        String solution,
+        boolean frameDumping,
+        LevelMenuItem menuItem,
+        LevelsMenu menu
     )
     {
         super( fs, out, locale, new PointAwarder(uiConfig) );
