@@ -16,6 +16,7 @@ import javax.swing.*;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
+import rabbitescape.engine.points.PointManager;
 import rabbitescape.render.BitmapCache;
 
 class GameMenu
@@ -335,6 +336,8 @@ class GameMenu
 
     static class SpecialAbilityDisplay extends AbilityDisplay
     {
+        private PointManager pm = PointManager.getInstance();
+        private int cost;
         public SpecialAbilityDisplay( JToggleButton button, JLabel label, int cost )
         {
             super( button, label );
@@ -344,14 +347,15 @@ class GameMenu
         @Override
         public void stateChange( Object... args )
         {
-
+            int currentPoint = pm.getPoints();
+            button.setEnabled( currentPoint >= cost );
         }
 
         public void setCost( int cost )
         {
+            this.cost = cost;
             label.setText( " " + cost );
+            this.stateChange(  );
         }
     }
-
-
 }
