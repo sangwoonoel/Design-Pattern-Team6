@@ -34,6 +34,12 @@ public class StandardConfigSchema
         );
 
         definition.set(
+                CFG_LEVELS_SCORES,
+                "{}",
+                "Scores for each level in the game."
+         );
+      
+        definition.set(
                 CFG_TOTAL_POINTS,
                 "0", // Default total points
                 "The total points earned by the player."
