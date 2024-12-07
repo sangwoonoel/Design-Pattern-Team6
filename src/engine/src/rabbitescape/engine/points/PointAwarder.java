@@ -9,7 +9,10 @@ public class PointAwarder {
 
     public PointAwarder()
     {
-        this.pointCalculator = new DefaultPointCalculator();
+        PointCalculator defaultPointCalculator = new DefaultPointCalculator();
+        PointCalculator saturdayEventDecorator = new SaturdayEventDecorator(defaultPointCalculator);
+
+        this.pointCalculator = saturdayEventDecorator;
         this.pointManager = PointManager.getInstance();
     }
 

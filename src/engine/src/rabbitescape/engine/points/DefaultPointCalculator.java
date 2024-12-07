@@ -2,8 +2,7 @@ package rabbitescape.engine.points;
 
 import rabbitescape.engine.World;
 
-public class DefaultPointCalculator
-        implements PointCalculator
+public class DefaultPointCalculator implements PointCalculator
 {
     @Override
     public int calculate( World world )
