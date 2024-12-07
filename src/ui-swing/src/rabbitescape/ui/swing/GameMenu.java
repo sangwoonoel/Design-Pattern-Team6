@@ -346,6 +346,7 @@ class GameMenu
             PointManager pm = PointManager.getInstance();
             pm.addObserver( this );
             setCost( cost );
+            update( pm, null );
         }
 
         @Override
@@ -355,7 +356,6 @@ class GameMenu
         {
             this.cost = cost;
             label.setText( " " + cost );
-            this.stateChange(  );
         }
 
         @Override
