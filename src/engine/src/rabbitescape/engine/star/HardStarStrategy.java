@@ -1,11 +1,11 @@
-package rabbitescape.engine.util;
+package rabbitescape.engine.star;
 
 import rabbitescape.engine.World;
 
-public class HardScoreStrategy implements ScoreStrategy
+public class HardStarStrategy implements StarStrategy
 {
     @Override
-    public int calculateScore(World world) {
+    public int calculateStar(World world) {
         if (world.num_rabbits == world.num_to_save) {
             return 3;
         }

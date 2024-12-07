@@ -3,6 +3,7 @@ package rabbitescape.engine.util;
 import org.junit.Assert;
 import org.junit.Test;
 import rabbitescape.engine.*;
+import rabbitescape.engine.star.DefaultStarStrategy;
 import rabbitescape.engine.textworld.Comment;
 
 import java.util.ArrayList;
@@ -13,11 +14,11 @@ public class TestDefaultScoreStrategy
     @Test
     public void Three_stars_when_num_saved_is_larger_than_num_to_save()
     {
-        DefaultScoreStrategy strategy = new DefaultScoreStrategy();
+        DefaultStarStrategy strategy = new DefaultStarStrategy();
 
         World world = mockWorld( 10, 3 );
 
-        int score = strategy.calculateScore( world );
+        int score = strategy.calculateStar( world );
 
         Assert.assertEquals( 3, score );
     }
@@ -25,11 +26,11 @@ public class TestDefaultScoreStrategy
     @Test
     public void Two_stars_when_num_saved_is_equal_to_num_to_save()
     {
-        DefaultScoreStrategy strategy = new DefaultScoreStrategy();
+        DefaultStarStrategy strategy = new DefaultStarStrategy();
 
         World world = mockWorld( 3, 3 );
 
-        int score = strategy.calculateScore( world );
+        int score = strategy.calculateStar( world );
 
         Assert.assertEquals( 2, score );
     }
@@ -37,11 +38,11 @@ public class TestDefaultScoreStrategy
     @Test
     public void One_star_when_num_saved_is_less_than_num_to_save()
     {
-        DefaultScoreStrategy strategy = new DefaultScoreStrategy();
+        DefaultStarStrategy strategy = new DefaultStarStrategy();
 
         World world = mockWorld( 0, 3 );
 
-        int score = strategy.calculateScore( world );
+        int score = strategy.calculateStar( world );
 
         Assert.assertEquals( 1, score );
     }

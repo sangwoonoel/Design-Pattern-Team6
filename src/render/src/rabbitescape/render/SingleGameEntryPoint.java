@@ -10,7 +10,7 @@ import rabbitescape.engine.points.PointManager;
 import rabbitescape.engine.util.FileSystem;
 
 import rabbitescape.engine.points.PointAwarder;
-import rabbitescape.engine.util.ScoreCalculator;
+import rabbitescape.engine.star.StarCalculator;
 
 public abstract class SingleGameEntryPoint
 {
@@ -26,7 +26,7 @@ public abstract class SingleGameEntryPoint
     private final Locale locale;
     private final PointAwarder pointAwarder = new PointAwarder();
     private final StarRecoder starRecoder = BasicStarRecoder.getInstance();
-    private final ScoreCalculator scoreCalculator = ScoreCalculator.getInstance();
+    private final StarCalculator scoreCalculator = StarCalculator.getInstance();
     private final PointManager pointManager = PointManager.getInstance();
 
     public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale )
