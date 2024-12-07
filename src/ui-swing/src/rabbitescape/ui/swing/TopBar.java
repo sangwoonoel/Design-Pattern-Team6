@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 
@@ -17,7 +19,7 @@ import rabbitescape.render.gameloop.Physics;
 import static rabbitescape.engine.i18n.Translation.t;
 import static rabbitescape.engine.util.Util.*;
 
-public class TopBar implements Physics.StatsChangedListener
+public class TopBar implements Physics.StatsChangedListener, Observer
 {
     private static final String outText     = "Out: ${num1} / ${num2}";
     private static final String savedText   = "Saved: ${num1} / ${num2}";
@@ -55,7 +57,9 @@ public class TopBar implements Physics.StatsChangedListener
         this.numToSave = numToSave;
 
         // Remaining points 초기화
+        pointManager.addObserver(this);
         this.remainingPoints = addLabel(remainingPointText, 300);
+
         updateRemainingPoints(); // 초기값 설정
     }
 
@@ -139,5 +143,11 @@ public class TopBar implements Physics.StatsChangedListener
     public void updateRemainingPoints() {
         int points = pointManager.getPoints(); // 현재 포인트 가져오기
         setText(remainingPoints, remainingPointText, newMap("num", String.valueOf(points)));
+    }
+
+    @Override
+    public void update( Observable o, Object arg )
+    {
+        updateRemainingPoints();
     }
 }

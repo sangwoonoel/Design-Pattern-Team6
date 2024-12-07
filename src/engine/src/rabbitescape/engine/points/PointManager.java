@@ -3,8 +3,10 @@ package rabbitescape.engine.points;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 
-public class PointManager {
+import java.util.Observable;
 
+public class PointManager extends Observable
+{
     private static final String TOTAL_POINTS = "total.points";
     private static PointManager instance = null;
 
@@ -50,6 +52,9 @@ public class PointManager {
         save( point );
 
         System.out.println("[DEBUG] Added " + amount + " points. Total: " + point);
+
+        setChanged();
+        notifyObservers();
     }
 
     // 포인트 사용
@@ -62,6 +67,10 @@ public class PointManager {
             this.point -= amount;
             System.out.println("[DEBUG] Consumed " + amount + " points. Remaining: " + point);
             save( point );
+
+            setChanged();
+            notifyObservers();
+
             return true; // 성공
         } else {
             System.out.println("[DEBUG] Failed to consume " + amount + " points. Remaining: " + point);
@@ -79,4 +88,5 @@ public class PointManager {
         ConfigTools.setInt( config, TOTAL_POINTS, p );
         config.save();
     }
+
 }
