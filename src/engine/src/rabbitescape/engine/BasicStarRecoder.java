@@ -9,10 +9,30 @@ import static rabbitescape.engine.config.ConfigKeys.CFG_LEVELS_SCORES;
 
 public class BasicStarRecoder implements StarRecoder
 {
+    private static BasicStarRecoder instance = null;
+
+    public static void init( Config config )
+    {
+        if ( instance != null )
+        {
+            throw new IllegalStateException( "BasicStarRecoder already initialized" );
+        }
+        instance = new BasicStarRecoder( config );
+    }
+
+    public static BasicStarRecoder getInstance( )
+    {
+        if ( instance == null )
+        {
+            throw new IllegalStateException( "BasicStarRecoder not initialized" );
+        }
+        return instance;
+    }
+
     private final Map<String, Integer> starsMap;
     private final Config config;
-    
-    public BasicStarRecoder(Config config)
+
+    private BasicStarRecoder(Config config)
     {
         this.config = config;
         this.starsMap = ConfigTools.getMap(

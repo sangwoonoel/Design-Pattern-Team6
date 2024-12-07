@@ -3,11 +3,7 @@ package rabbitescape.engine.menu;
 import rabbitescape.engine.BasicStarRecoder;
 import rabbitescape.engine.StarRecoder;
 import rabbitescape.engine.config.Config;
-import rabbitescape.engine.config.ConfigTools;
 
-import java.util.Map;
-
-import static rabbitescape.engine.config.ConfigKeys.CFG_LEVELS_SCORES;
 import static rabbitescape.engine.menu.ByNameConfigBasedLevelsCompleted.canonicalName;
 
 public class ByNameConfigBasedLevelsScore implements LevelsScore{
@@ -29,7 +25,7 @@ public class ByNameConfigBasedLevelsScore implements LevelsScore{
 
         String completedName = canonicalName( newlyCompleted.name );
 
-        StarRecoder starRecoder = new BasicStarRecoder(config);
+        StarRecoder starRecoder = BasicStarRecoder.getInstance();
         starRecoder.recordStar(completedName, score);
     }
 }

@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import javax.swing.SwingUtilities;
 
+import rabbitescape.engine.BasicStarRecoder;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 import rabbitescape.engine.i18n.Translation;
@@ -62,6 +63,7 @@ public class SwingMain
          */
 
         PointManager.init( config );
+        BasicStarRecoder.init( config );
 
         SwingMain m = new SwingMain(
             new RealFileSystem(),

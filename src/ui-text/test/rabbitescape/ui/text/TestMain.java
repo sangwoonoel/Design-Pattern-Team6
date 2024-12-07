@@ -16,6 +16,7 @@ import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigFile;
 import rabbitescape.engine.config.ConfigSchema;
 import rabbitescape.engine.config.RealConfigUpgrades;
+import rabbitescape.engine.points.PointManager;
 import rabbitescape.engine.util.FakeFileSystem;
 import rabbitescape.engine.util.FileSystem;
 import rabbitescape.engine.util.NothingExistsFileSystem;
@@ -31,11 +32,12 @@ public class TestMain
         FileSystem fs = new NothingExistsFileSystem();
 
         Config config = createTestConfig(); // Config 생성
-        PointAwarder pointAwarder = new PointAwarder();
-        StarRecoder starRecoder = new BasicStarRecoder(config);
+
+        PointManager.init( config );
+        BasicStarRecoder.init( config );
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder
+                fs, new PrintStream(out), Locale.ENGLISH
         );
 
         int status = main.launchGame(
@@ -61,12 +63,13 @@ public class TestMain
         FileSystem fs = new FakeFileSystem("file1", badLevel);
 
         Config config = createTestConfig(); // Config 생성
-        PointAwarder pointAwarder = new PointAwarder();
-        StarRecoder starRecoder = new BasicStarRecoder(config);
+
+        PointManager.init( config );
+        BasicStarRecoder.init( config );
 
 
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder
+                fs, new PrintStream(out), Locale.ENGLISH
         );
 
         int status = main.launchGame(
@@ -94,10 +97,12 @@ public class TestMain
         FileSystem fs = new FakeFileSystem("file1", badLevel);
 
         Config config = createTestConfig(); // Config 생성
-        PointAwarder pointAwarder = new PointAwarder();
-        StarRecoder starRecoder = new BasicStarRecoder(config);
+
+        PointManager.init( config );
+        BasicStarRecoder.init( config );
+
         TextSingleGameEntryPoint main = new TextSingleGameEntryPoint(
-                fs, new PrintStream(out), Locale.ENGLISH, pointAwarder, starRecoder
+                fs, new PrintStream(out), Locale.ENGLISH
         );
 
         int status = main.launchGame(

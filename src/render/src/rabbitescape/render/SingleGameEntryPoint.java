@@ -24,18 +24,16 @@ public abstract class SingleGameEntryPoint
     private final FileSystem fs;
     public final PrintStream out;
     private final Locale locale;
-    private final PointAwarder pointAwarder;
-    private final StarRecoder starRecoder;
+    private final PointAwarder pointAwarder = new PointAwarder();
+    private final StarRecoder starRecoder = BasicStarRecoder.getInstance();
     private final ScoreCalculator scoreCalculator = new ScoreCalculator();
     private final PointManager pointManager = PointManager.getInstance();
 
-    public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale, PointAwarder pointAwarder, StarRecoder starRecoder )
+    public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale )
     {
         this.fs = fs;
         this.out = out;
         this.locale = locale;
-        this.pointAwarder = pointAwarder;
-        this.starRecoder = starRecoder;
     }
 
     public void run( String[] args )

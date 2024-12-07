@@ -20,12 +20,10 @@ public class TextSingleGameEntryPoint extends SingleGameEntryPoint
     public TextSingleGameEntryPoint( 
         FileSystem fs, 
         PrintStream out,          
-        Locale locale,
-        PointAwarder pointAwarder,
-        StarRecoder starRecoder
+        Locale locale
     )
     {
-        super( fs, out, locale, pointAwarder, starRecoder );
+        super( fs, out, locale );
     }
 
     public static void entryPoint( String[] args )
@@ -33,15 +31,16 @@ public class TextSingleGameEntryPoint extends SingleGameEntryPoint
         Locale locale = Locale.getDefault();
         Translation.init( locale );
 
+
+        BasicStarRecoder.init( TextConfigSetup.createConfig() );
         PointAwarder pointAwarder = new PointAwarder();
-        StarRecoder starRecoder = new BasicStarRecoder( TextConfigSetup.createConfig() );
+
+        StarRecoder starRecoder = BasicStarRecoder.getInstance();
 
         SingleGameEntryPoint m = new TextSingleGameEntryPoint(
             new RealFileSystem(), 
             System.out, 
-            locale,
-            pointAwarder,
-            starRecoder
+            locale
         );
 
         m.run( args );

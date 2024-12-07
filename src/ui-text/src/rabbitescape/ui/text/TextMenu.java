@@ -66,7 +66,9 @@ public class TextMenu
         this.levelsCompleted = new ByNameConfigBasedLevelsCompleted(
             config, levelsList );
         this.pointAwarder = new PointAwarder();
-        this.starRecoder = new BasicStarRecoder( config );
+
+        BasicStarRecoder.init( config );
+        this.starRecoder = BasicStarRecoder.getInstance();
     }
 
     public void run()
@@ -124,7 +126,7 @@ public class TextMenu
     {
         LevelMenuItem levelItem = (LevelMenuItem)item;
 
-        new TextSingleGameEntryPoint( fs, terminal.out, terminal.locale, pointAwarder, starRecoder )
+        new TextSingleGameEntryPoint( fs, terminal.out, terminal.locale )
             .launchGame(
                 new String[] { levelItem.fileName },
                 winListeners( levelItem )
