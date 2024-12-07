@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 
@@ -334,28 +336,34 @@ class GameMenu
         }
     }
 
-    static class SpecialAbilityDisplay extends AbilityDisplay
+    static class SpecialAbilityDisplay extends AbilityDisplay implements Observer
     {
-        private PointManager pm = PointManager.getInstance();
         private int cost;
+
         public SpecialAbilityDisplay( JToggleButton button, JLabel label, int cost )
         {
             super( button, label );
+            PointManager pm = PointManager.getInstance();
+            pm.addObserver( this );
             setCost( cost );
         }
 
         @Override
-        public void stateChange( Object... args )
-        {
-            int currentPoint = pm.getPoints();
-            button.setEnabled( currentPoint >= cost );
-        }
+        public void stateChange( Object... args ) { }
 
         public void setCost( int cost )
         {
             this.cost = cost;
             label.setText( " " + cost );
             this.stateChange(  );
+        }
+
+        @Override
+        public void update( Observable o, Object arg )
+        {
+            PointManager pm = (PointManager)o;
+            int currentPoint = pm.getPoints();
+            button.setEnabled( currentPoint >= cost );
         }
     }
 }
