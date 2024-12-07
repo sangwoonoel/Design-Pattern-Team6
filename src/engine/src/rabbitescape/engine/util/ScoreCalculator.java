@@ -4,10 +4,21 @@ import rabbitescape.engine.World;
 
 public class ScoreCalculator
 {
+    private static ScoreCalculator instance = null;
+
+    public static ScoreCalculator getInstance() {
+        if (instance == null) {
+            instance = new ScoreCalculator();
+        }
+        return instance;
+    }
+
     private ScoreStrategy scoreStrategy;
-    public ScoreCalculator() {
+
+    private ScoreCalculator() {
         scoreStrategy = new DefaultScoreStrategy();
     }
+
     public ScoreCalculator(ScoreStrategy scoreStrategy) {
         this.scoreStrategy = scoreStrategy;
     }

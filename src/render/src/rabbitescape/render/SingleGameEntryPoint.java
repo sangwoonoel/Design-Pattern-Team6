@@ -26,7 +26,7 @@ public abstract class SingleGameEntryPoint
     private final Locale locale;
     private final PointAwarder pointAwarder = new PointAwarder();
     private final StarRecoder starRecoder = BasicStarRecoder.getInstance();
-    private final ScoreCalculator scoreCalculator = new ScoreCalculator();
+    private final ScoreCalculator scoreCalculator = ScoreCalculator.getInstance();
     private final PointManager pointManager = PointManager.getInstance();
 
     public SingleGameEntryPoint( FileSystem fs, PrintStream out, Locale locale )
