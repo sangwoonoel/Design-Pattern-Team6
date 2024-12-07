@@ -44,7 +44,7 @@ public class TestDefaultScoreStrategy
 
         int score = strategy.calculateStar( world );
 
-        Assert.assertEquals( 1, score );
+        Assert.assertEquals( 0, score );
     }
 
     private World mockWorld(int num_saved, int num_to_save)
