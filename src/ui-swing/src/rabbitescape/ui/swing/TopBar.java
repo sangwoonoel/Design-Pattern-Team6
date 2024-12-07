@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.swing.*;
 
 import rabbitescape.engine.Token;
+import rabbitescape.engine.points.PointManager;
 import rabbitescape.render.gameloop.Physics;
 
 import static rabbitescape.engine.i18n.Translation.t;
@@ -20,9 +21,9 @@ public class TopBar implements Physics.StatsChangedListener
 {
     private static final String outText     = "Out: ${num1} / ${num2}";
     private static final String savedText   = "Saved: ${num1} / ${num2}";
-
     private static final String abilityText =
         "${ability} (${numLeft} left)";
+    private static final String remainingPointText = "Remaining points: ${num}";
 
     private static final String buyableAbilityText = "${ability} (cost : ${cost})";
 
@@ -31,7 +32,9 @@ public class TopBar implements Physics.StatsChangedListener
     private final JLabel out;
     private final JLabel saved;
     private final JLabel ability;
+    private final JLabel remainingPoints; // Remaining points를 표시할 Label
     private final int numToSave;
+    private final PointManager pointManager = PointManager.getInstance();
 
     public TopBar( 
         Color backgroundColor, 
@@ -50,6 +53,10 @@ public class TopBar implements Physics.StatsChangedListener
         setCountText( this.saved, savedText, 0, numToSave );
         setCountText( this.out, outText, 0, 0 );
         this.numToSave = numToSave;
+
+        // Remaining points 초기화
+        this.remainingPoints = addLabel(remainingPointText, 300);
+        updateRemainingPoints(); // 초기값 설정
     }
 
     private JPanel createPanel( Container contentPane )
@@ -129,4 +136,8 @@ public class TopBar implements Physics.StatsChangedListener
         );
     }
 
+    public void updateRemainingPoints() {
+        int points = pointManager.getPoints(); // 현재 포인트 가져오기
+        setText(remainingPoints, remainingPointText, newMap("num", String.valueOf(points)));
+    }
 }

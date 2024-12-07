@@ -197,7 +197,7 @@ public class World
         this.changes = new WorldChanges( this, statsListener );
 
         //global buyable abilities
-        abilities.put( Token.Type.freeze, 500);
+        abilities.put( Token.Type.freeze, Token.getCostOfSpecialToken( Token.Type.freeze ) );
 
         init();
     }
