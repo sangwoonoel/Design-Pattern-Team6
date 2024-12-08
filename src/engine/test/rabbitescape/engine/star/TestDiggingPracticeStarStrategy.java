@@ -1,22 +1,25 @@
-package rabbitescape.engine.util;
+package rabbitescape.engine.star;
 
 import org.junit.Assert;
 import org.junit.Test;
 import rabbitescape.engine.*;
-import rabbitescape.engine.star.DefaultStarStrategy;
 import rabbitescape.engine.textworld.Comment;
+import rabbitescape.engine.util.Dimension;
+import rabbitescape.engine.util.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-public class TestDefaultScoreStrategy
+public class TestDiggingPracticeStarStrategy
 {
-    @Test
-    public void Three_stars_when_num_saved_is_larger_than_num_to_save()
-    {
-        DefaultStarStrategy strategy = new DefaultStarStrategy();
 
-        World world = mockWorld( 10, 3 );
+    @Test
+    public void Three_stars_when_only_use_one_digging_and_save_all_rabbits()
+    {
+        DiggingPracticeStarStrategy strategy = new DiggingPracticeStarStrategy();
+
+        World world = mockWorld( 3, 1, 4 );
 
         int score = strategy.calculateStar( world );
 
@@ -24,11 +27,11 @@ public class TestDefaultScoreStrategy
     }
 
     @Test
-    public void Two_stars_when_num_saved_is_equal_to_num_to_save()
+    public void Two_stars_when_more_digging_token_used_than_needed()
     {
-        DefaultStarStrategy strategy = new DefaultStarStrategy();
+        DiggingPracticeStarStrategy strategy = new DiggingPracticeStarStrategy();
 
-        World world = mockWorld( 3, 3 );
+        World world = mockWorld( 3, 1, 3 );
 
         int score = strategy.calculateStar( world );
 
@@ -36,26 +39,30 @@ public class TestDefaultScoreStrategy
     }
 
     @Test
-    public void One_star_when_num_saved_is_less_than_num_to_save()
+    public void One_star_when_not_enough_rabbit_saved()
     {
-        DefaultStarStrategy strategy = new DefaultStarStrategy();
+        DiggingPracticeStarStrategy strategy = new DiggingPracticeStarStrategy();
 
-        World world = mockWorld( 0, 3 );
+        World world = mockWorld( 1, 1, 3 );
 
         int score = strategy.calculateStar( world );
 
-        Assert.assertEquals( 0, score );
+        Assert.assertEquals( 1, score );
     }
 
-    private World mockWorld(int num_saved, int num_to_save)
+    private World mockWorld( int num_saved, int num_to_save, int num_digging_left )
     {
+
+        Map<Token.Type, Integer> abilities = new HashMap<>();
+        abilities.put( Token.Type.dig, num_digging_left );
+
         return new World(
             new Dimension( 5, 5 ),
             new ArrayList<Block>(),
             new ArrayList<Rabbit>(),
             new ArrayList<Thing>(),
             new HashMap<Position, Integer>(),
-            new HashMap<Token.Type, Integer>(),
+            abilities,
             "Empty World",   //name
             "",              //description
             "",              //author_name
@@ -76,4 +83,5 @@ public class TestDefaultScoreStrategy
             VoidMarkerStyle.Style.HIGHLIGHTER
         );
     }
+
 }
