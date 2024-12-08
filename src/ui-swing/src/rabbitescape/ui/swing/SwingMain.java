@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import javax.swing.SwingUtilities;
 
-import rabbitescape.engine.BasicStarRecoder;
+import rabbitescape.engine.star.BasicStarRecoder;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
 import rabbitescape.engine.i18n.Translation;
