@@ -20,6 +20,8 @@ import rabbitescape.engine.menu.Menu;
 import rabbitescape.engine.menu.MenuDefinition;
 import rabbitescape.engine.menu.MenuItem;
 import rabbitescape.engine.menu.MenuItem.Type;
+import rabbitescape.engine.star.BasicStarRecoder;
+import rabbitescape.engine.star.StarRecoder;
 import rabbitescape.engine.util.FileSystem;
 
 import rabbitescape.engine.points.PointAwarder;

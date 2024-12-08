@@ -1,4 +1,4 @@
-package rabbitescape.engine;
+package rabbitescape.engine.star;
 
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;

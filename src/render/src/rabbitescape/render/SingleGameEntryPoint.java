@@ -7,6 +7,8 @@ import java.util.Locale;
 
 import rabbitescape.engine.*;
 import rabbitescape.engine.points.PointManager;
+import rabbitescape.engine.star.BasicStarRecoder;
+import rabbitescape.engine.star.StarRecoder;
 import rabbitescape.engine.util.FileSystem;
 
 import rabbitescape.engine.points.PointAwarder;

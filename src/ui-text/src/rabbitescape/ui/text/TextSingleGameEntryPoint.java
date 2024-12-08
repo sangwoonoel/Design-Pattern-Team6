@@ -3,9 +3,9 @@ package rabbitescape.ui.text;
 import java.io.PrintStream;
 import java.util.Locale;
 
-import rabbitescape.engine.BasicStarRecoder;
+import rabbitescape.engine.star.BasicStarRecoder;
 import rabbitescape.engine.LevelWinListener;
-import rabbitescape.engine.StarRecoder;
+import rabbitescape.engine.star.StarRecoder;
 import rabbitescape.engine.World;
 import rabbitescape.engine.i18n.Translation;
 import rabbitescape.engine.util.FileSystem;
