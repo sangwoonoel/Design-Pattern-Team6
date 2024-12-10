@@ -1,54 +1,48 @@
-package rabbitescape.engine.util;
+package rabbitescape.engine.points;
 
 import org.junit.Assert;
 import org.junit.Test;
 import rabbitescape.engine.*;
-import rabbitescape.engine.star.DefaultStarStrategy;
 import rabbitescape.engine.textworld.Comment;
+import rabbitescape.engine.util.Dimension;
+import rabbitescape.engine.util.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-public class TestDefaultScoreStrategy
+public class TestDefaultPointCalculator
 {
+
     @Test
-    public void Three_stars_when_num_saved_is_larger_than_num_to_save()
+    public void Points_are_based_on_num_saved()
     {
-        DefaultStarStrategy strategy = new DefaultStarStrategy();
+        DefaultPointCalculator calculator = new DefaultPointCalculator();
 
-        World world = mockWorld( 10, 3 );
+        World world = mockWorld( 3, 1, 4 );
 
-        int score = strategy.calculateStar( world );
+        int points = calculator.calculate( world );
 
-        Assert.assertEquals( 3, score );
+        Assert.assertEquals( 30, points );
     }
 
     @Test
-    public void Two_stars_when_num_saved_is_equal_to_num_to_save()
+    public void Bonus_point_when_num_waiting_is_zero()
     {
-        DefaultStarStrategy strategy = new DefaultStarStrategy();
+        DefaultPointCalculator calculator = new DefaultPointCalculator();
 
-        World world = mockWorld( 3, 3 );
+        World world = mockWorld( 3, 1, 0 );
 
-        int score = strategy.calculateStar( world );
+        int points = calculator.calculate( world );
 
-        Assert.assertEquals( 2, score );
+        Assert.assertEquals( 80, points );
     }
 
-    @Test
-    public void One_star_when_num_saved_is_less_than_num_to_save()
+
+
+    private World mockWorld( int num_saved, int num_to_save, int num_waiting )
     {
-        DefaultStarStrategy strategy = new DefaultStarStrategy();
 
-        World world = mockWorld( 0, 3 );
-
-        int score = strategy.calculateStar( world );
-
-        Assert.assertEquals( 0, score );
-    }
-
-    private World mockWorld(int num_saved, int num_to_save)
-    {
         return new World(
             new Dimension( 5, 5 ),
             new ArrayList<Block>(),
@@ -68,7 +62,7 @@ public class TestDefaultScoreStrategy
             "",              //music
             num_saved,               //num_saved
             0,               //num_killed
-            0,               //num_waiting
+            num_waiting,               //num_waiting
             0,               //rabbit_index_count
             false,
             new Comment[] {},

@@ -1,4 +1,4 @@
-package rabbitescape.engine;
+package rabbitescape.engine.star;
 
 import java.util.Map;
 

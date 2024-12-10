@@ -9,9 +9,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import rabbitescape.engine.BasicStarRecoder;
+import rabbitescape.engine.star.BasicStarRecoder;
 import rabbitescape.engine.IgnoreLevelWinListener;
-import rabbitescape.engine.StarRecoder;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigFile;
 import rabbitescape.engine.config.ConfigSchema;
@@ -20,8 +19,6 @@ import rabbitescape.engine.points.PointManager;
 import rabbitescape.engine.util.FakeFileSystem;
 import rabbitescape.engine.util.FileSystem;
 import rabbitescape.engine.util.NothingExistsFileSystem;
-
-import rabbitescape.engine.points.PointAwarder;
 
 public class TestMain
 {

@@ -1,6 +1,7 @@
 package rabbitescape.engine.points;
 
 import rabbitescape.engine.World;
+import rabbitescape.engine.util.JavaDateTimeProvider;
 
 public class PointAwarder {
 
@@ -10,7 +11,7 @@ public class PointAwarder {
     public PointAwarder()
     {
         PointCalculator defaultPointCalculator = new DefaultPointCalculator();
-        PointCalculator saturdayEventDecorator = new SaturdayEventDecorator(defaultPointCalculator);
+        PointCalculator saturdayEventDecorator = new SaturdayEventDecorator(defaultPointCalculator, new JavaDateTimeProvider() );
 
         this.pointCalculator = saturdayEventDecorator;
         this.pointManager = PointManager.getInstance();

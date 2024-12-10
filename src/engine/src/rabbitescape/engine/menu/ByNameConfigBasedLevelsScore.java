@@ -1,7 +1,7 @@
 package rabbitescape.engine.menu;
 
-import rabbitescape.engine.BasicStarRecoder;
-import rabbitescape.engine.StarRecoder;
+import rabbitescape.engine.star.BasicStarRecoder;
+import rabbitescape.engine.star.StarRecoder;
 import rabbitescape.engine.config.Config;
 
 import static rabbitescape.engine.menu.ByNameConfigBasedLevelsCompleted.canonicalName;

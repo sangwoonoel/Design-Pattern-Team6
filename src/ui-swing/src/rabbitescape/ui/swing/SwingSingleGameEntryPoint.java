@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import javax.swing.SwingUtilities;
 
-import rabbitescape.engine.BasicStarRecoder;
 import rabbitescape.engine.LevelWinListener;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.Config;
@@ -22,8 +21,6 @@ import rabbitescape.render.BitmapCache;
 import rabbitescape.render.GameLaunch;
 import rabbitescape.render.SingleGameEntryPoint;
 import rabbitescape.render.androidlike.Sound;
-
-import rabbitescape.engine.points.PointAwarder;
 
 public class SwingSingleGameEntryPoint extends SingleGameEntryPoint
 {
